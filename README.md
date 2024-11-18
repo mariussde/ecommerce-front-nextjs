@@ -21,6 +21,13 @@ A modern e-commerce platform for premium photography, built with Next.js 13, Typ
 - **Icons:** Lucide React
 - **Language:** TypeScript
 
+## Backend
+
+The application uses a RESTful API backend:
+
+- **API URL:** https://ecommerce-api-0pi3.onrender.com
+- **Source Code:** https://github.com/mariussde/ecommerce-api
+
 ## Getting Started
 
 1. Clone the repository:

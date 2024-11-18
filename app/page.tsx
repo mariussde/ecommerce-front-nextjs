@@ -5,6 +5,7 @@ import Header from '@/components/Header';
 import Pagination from '@/components/Pagination';
 import { ShoppingCart } from 'lucide-react';
 import AddToCartButton from '@/components/AddToCartButton';
+import SortButton from '@/components/SortButton';
 
 export default async function Home({
   searchParams,
@@ -103,10 +104,7 @@ export default async function Home({
             <ShoppingCart className="w-4 h-4" />
             <span>Sort By</span>
           </div>
-          <button className="flex items-center gap-2">
-            Price
-            <span className="rotate-180">⌃</span>
-          </button>
+          <SortButton />
         </div>
       </section>
 
