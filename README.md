@@ -1,6 +1,6 @@
 # Bejamas Photography Store
 
-A modern e-commerce platform for premium photography, built with Next.js 13, TypeScript, and Tailwind CSS.
+A modern e-commerce platform, built with Next.js 13, TypeScript, and Tailwind CSS.
 
 ## Features
 
