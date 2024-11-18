@@ -1,0 +1,67 @@
+-- Products and Categories
+CREATE TABLE
+  categories (
+    id BIGINT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+    NAME TEXT NOT NULL,
+    slug TEXT UNIQUE NOT NULL,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+  );
+
+CREATE TABLE
+  products (
+    id BIGINT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+    NAME TEXT NOT NULL,
+    slug TEXT UNIQUE NOT NULL,
+    description TEXT,
+    price DECIMAL(10, 2) NOT NULL CHECK (price >= 0),
+    stock_quantity INTEGER NOT NULL DEFAULT 0 CHECK (stock_quantity >= 0),
+    is_featured BOOLEAN DEFAULT FALSE,
+    image_url TEXT NOT NULL,
+    category_id BIGINT REFERENCES categories(id),
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+  );
+
+-- Cart and Orders
+CREATE TABLE
+  carts (
+    id BIGINT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+  );
+
+CREATE TABLE
+  cart_items (
+    id BIGINT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+    cart_id BIGINT REFERENCES carts (id) ON DELETE CASCADE,
+    product_id BIGINT REFERENCES products (id) ON DELETE CASCADE,
+    quantity INTEGER NOT NULL DEFAULT 1 CHECK (quantity > 0),
+    price_at_time DECIMAL(10, 2) NOT NULL CHECK (price_at_time >= 0),
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+  );
+
+CREATE TABLE
+  orders (
+    id BIGINT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+    status TEXT NOT NULL,
+    total_amount DECIMAL(10, 2) NOT NULL,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+  );
+
+CREATE TABLE
+  order_items (
+    id BIGINT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+    order_id BIGINT REFERENCES orders (id) ON DELETE CASCADE,
+    product_id BIGINT REFERENCES products (id),
+    quantity INTEGER NOT NULL CHECK (quantity > 0),
+    price_at_time DECIMAL(10, 2) NOT NULL CHECK (price_at_time >= 0),
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+  );
+
+CREATE TABLE related_products (
+    product_id BIGINT REFERENCES products(id) ON DELETE CASCADE,
+    related_product_id BIGINT REFERENCES products(id) ON DELETE CASCADE,
+    PRIMARY KEY (product_id, related_product_id)
+  );
