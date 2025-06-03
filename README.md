@@ -25,7 +25,6 @@ A modern e-commerce platform, built with Next.js 13, TypeScript, and Tailwind CS
 
 The application uses a RESTful API backend:
 
-- **API URL:** https://ecommerce-api-0pi3.onrender.com
 - **Source Code:** https://github.com/mariussde/ecommerce-api
 
 ## Getting Started
